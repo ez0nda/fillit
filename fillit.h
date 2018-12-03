@@ -6,13 +6,15 @@
 /*   By: jebrocho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/28 14:39:40 by jebrocho          #+#    #+#             */
-/*   Updated: 2018/12/01 15:10:25 by ezonda           ###   ########.fr       */
+/*   Updated: 2018/12/03 14:27:26 by ezonda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FILLIT_H
 # define FILLIT_H
 
-#include "libft/includes/libft.h"
+# include "libft/includes/libft.h"
+
+int		ft_checkall(char *tab);
 
 #endif

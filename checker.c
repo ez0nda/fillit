@@ -6,66 +6,76 @@
 /*   By: ezonda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 14:36:41 by ezonda            #+#    #+#             */
-/*   Updated: 2018/12/01 16:05:01 by ezonda           ###   ########.fr       */
+/*   Updated: 2018/12/03 17:23:49 by ezonda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdio.h>
 
-void	ft_is_valid(char **line)
+static int		ft_checkchar(char *tab)
 {
-	int sharp = 0;
-	int dot = 0;
-	int i = 0;
-	int j = 0;
+	int i;
+	int dot;
+	int sharp;
 
-	while (line[i][j] && (line[i][j] == '.' || line[i][j] == '#'))
+	i = 0;
+	dot = 0;
+	sharp = 0;
+	while (tab[i] != '\0')
 	{
-		if (line[i][j] == '.')
-		{
-			dot++;
-			if (dot > 12)
-			{
-				printf("error");
-				return ;
-			}
-			i++;
-		}
-		else if (line[i][j] == '#')
-		{
+		if (tab[i] == '#')
 			sharp++;
-			if (sharp > 4)
-			{
-				printf("error");
-				return ;
-			}
-			i++;
-		}
-		else
+		if (tab[i] == '.')
+			dot++;
+		if (tab[i] != '#' && tab[i] != '.' && tab[i] != ' ')
 		{
-			printf("error");
-			return ;
+			printf("error : wrong char\n");
+			return (-1);
 		}
-		if (ft_strlen(line[i]) == 4)
-		{
-			i = 0;
-			j++;
-		}
+		i++;
 	}
+	if (sharp != 4 || dot != 12)
+	{
+		printf("error : wrong number of |#| or |.|\n");
+		return (-1);
+	}
+	printf("chars ok\n");
+	return (0);
 }
 
-int		main(int ac, char **av)
+static int		ft_checkline(char *tab)
 {
-	int fd = open(av[1], O_RDONLY);
-	char *line;
+	int i;
+	int len;
 
-	(void)ac;
-	while (get_next_line(fd, &line) == 1)
+	i = 0;
+	len = 0;
+	while (tab[i] != '\0')
 	{
-		ft_putendl(line);
-		ft_is_valid(&line);
-		free(line);
+		if (tab[i] == '.' || tab[i] == '#')
+			len++;
+		if (len > 4)
+		{
+			printf("error : line > 4 chars\n");
+			return (-1);
+		}
+		if (len == 4 && tab[len] == ' ')
+			len = 0;
+		i++;
 	}
+	printf("line_size ok\n");
+	return (0);
+}
+
+int		ft_checkall(char *tab)
+{
+	printf("tetri : %s\n", tab);
+	if (ft_checkchar(tab) == -1)
+		return (-1);
+	if (ft_checkline(tab) == -1)
+		return (-1);
+//	if (ft_checktetri(tab) == 0)
+//		return (0);
 	return (0);
 }
