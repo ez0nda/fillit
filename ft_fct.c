@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fillit.h                                           :+:      :+:    :+:   */
+/*   ft_fct.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jebrocho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/28 14:39:40 by jebrocho          #+#    #+#             */
-/*   Updated: 2018/12/05 17:16:09 by jebrocho         ###   ########.fr       */
+/*   Created: 2018/12/04 16:46:14 by jebrocho          #+#    #+#             */
+/*   Updated: 2018/12/04 17:22:22 by jebrocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILLIT_H
-# define FILLIT_H
+#include "fillit.h"
 
-# include "libft/includes/libft.h"
+int		ft_check_line(char *line)
+{
+	if (line && ft_strlen(line))
+	{
+		ft_putendl("error");
+		return (-1);
+	}
+	return (0);
+}
 
-int		ft_checkall(char *tab);
-int		ft_check_line(char *line);
-int		ft_usage(void);
-char	**ft_algo(char **tetrimino, int i, int nb_tetri);
+int		ft_usage(void)
+{
+	ft_putstr("usage: ./fillit source_file\n");
+	return (0);
+}
 
-
-#endif

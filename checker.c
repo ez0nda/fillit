@@ -6,7 +6,7 @@
 /*   By: ezonda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 14:36:41 by ezonda            #+#    #+#             */
-/*   Updated: 2018/12/04 17:09:25 by ezonda           ###   ########.fr       */
+/*   Updated: 2018/12/05 15:05:27 by jebrocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,13 @@
 
 static int		ft_checkchar(char *tab)
 {
-	int i;
-	int dot;
-	int sharp;
-	int line_feed;
+	int		i;
+	int		dot;
+	int		sharp;
 
 	i = 0;
 	dot = 0;
 	sharp = 0;
-	line_feed = 0;
 	while (tab[i] != '\0')
 	{
 		if (tab[i] == '#')
@@ -40,8 +38,8 @@ static int		ft_checkchar(char *tab)
 
 static int		ft_checkline(char *tab)
 {
-	int i;
-	int len;
+	int		i;
+	int		len;
 
 	i = 0;
 	len = 0;
@@ -60,12 +58,12 @@ static int		ft_checkline(char *tab)
 
 static int		ft_checktetri(char *tab)
 {
-	int i;
-	int occ;
+	int			i;
+	int			occ;
 
 	i = 0;
 	occ = 0;
-	while (tab[i])
+	while (tab[i] != '\0')
 	{
 		if (tab[i] == '#' && tab[i + 1] == '#')
 			occ++;
@@ -82,13 +80,35 @@ static int		ft_checktetri(char *tab)
 	return (-1);
 }
 
-int		ft_checkall(char *tab)
+#include <stdio.h>
+
+int				ft_checkall(char *tab)
 {
+	static int	i;
+
+	i++;
+	printf("tetri :%s\n", tab);
 	if (ft_checkchar(tab) == -1)
+	{
+		ft_putendl("error");
 		return (-1);
+	}
 	if (ft_checkline(tab) == -1)
+	{
+		ft_putendl("error");
 		return (-1);
+	}
 	if (ft_checktetri(tab) == -1)
+	{
+		ft_putendl("error");
 		return (-1);
+	}
+	if (i == 26)
+	{
+		ft_putendl("error");
+		return (-1);
+	}
+	printf("okay\n");
+//	ft_top_left(tab);
 	return (0);
 }
