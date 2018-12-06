@@ -6,7 +6,7 @@
 /*   By: jebrocho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 16:46:14 by jebrocho          #+#    #+#             */
-/*   Updated: 2018/12/04 17:22:22 by jebrocho         ###   ########.fr       */
+/*   Updated: 2018/12/06 15:49:52 by jebrocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,3 +28,30 @@ int		ft_usage(void)
 	return (0);
 }
 
+char	**ft_create_map(int nb_tetri, char **map)
+{
+	int				i;
+	int				j;
+	int				k;
+
+	i = 0;
+	k = 0;
+	j = ft_sqrt(nb_tetri * 4);
+	if (!(map = (char**)malloc(sizeof(char*) * j + 1)))
+		return (NULL);
+	while (i < j)
+	{
+		if (!(map[i] = (char*)malloc(sizeof(char) * j)))
+			return (NULL);
+		while (k < j)
+		{
+			map[i][k] = '.';
+			k++;
+		}
+		map[i][k] = '\0';
+		k = 0;
+		i++;
+	}
+	map[j] = NULL;
+	return (map);
+}

@@ -6,7 +6,7 @@
 /*   By: ezonda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 14:36:41 by ezonda            #+#    #+#             */
-/*   Updated: 2018/12/05 15:05:27 by jebrocho         ###   ########.fr       */
+/*   Updated: 2018/12/06 11:09:57 by jebrocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,11 @@ static int		ft_checktetri(char *tab)
 	return (-1);
 }
 
-#include <stdio.h>
-
 int				ft_checkall(char *tab)
 {
 	static int	i;
 
 	i++;
-	printf("tetri :%s\n", tab);
 	if (ft_checkchar(tab) == -1)
 	{
 		ft_putendl("error");
@@ -108,7 +105,5 @@ int				ft_checkall(char *tab)
 		ft_putendl("error");
 		return (-1);
 	}
-	printf("okay\n");
-//	ft_top_left(tab);
 	return (0);
 }

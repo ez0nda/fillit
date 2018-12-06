@@ -6,7 +6,7 @@
 /*   By: jebrocho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 14:47:46 by jebrocho          #+#    #+#             */
-/*   Updated: 2018/12/05 17:16:36 by jebrocho         ###   ########.fr       */
+/*   Updated: 2018/12/06 13:09:50 by jebrocho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void			ft_form_tetrimino(char **tetrimino)
 
 	i = 0;
 	if (!k)
-		k = 4;
+		k = 5;
 	if (!letter)
 		letter = 'A';
 	while (j < k)
@@ -33,11 +33,11 @@ static void			ft_form_tetrimino(char **tetrimino)
 				tetrimino[j][i] = letter;
 			i++;
 		}
-		printf("tetralgo: %s\n", tetrimino[j]);
 		j++;
 		i = 0;
 	}
-	k = k + 4;
+	tetrimino[j] = NULL;
+	k = k + 5;
 	letter++;
 	ft_algo(tetrimino, 0, 0);
 }
@@ -51,9 +51,9 @@ static int		ft_stock_tetrimino(char *stock[5], int nb_tetri)
 
 	k = 0;
 	if (!i)
-		i = 4;
+		i = 5;
 	if (!tetrimino)
-		if (!(tetrimino = (char**)malloc(sizeof(char*) * nb_tetri * 4)))
+		if (!(tetrimino = (char**)malloc(sizeof(char*) * nb_tetri * 5 + 1)))
 			return (-1);
 	while (j < i)
 	{
@@ -63,7 +63,7 @@ static int		ft_stock_tetrimino(char *stock[5], int nb_tetri)
 		k++;
 	}
 	ft_form_tetrimino(tetrimino);
-	i = i + 4;
+	i = i + 5;
 	return (0);
 }
 
@@ -88,6 +88,7 @@ static int		ft_stock(char *line, int nb_tetri)
 				return (-1);
 			i++;
 		}
+		stock[i] = "\0";
 		if ((i = ft_checkall(tetra)) == -1)
 			return (-1);
 		if ((i = ft_stock_tetrimino(stock, nb_tetri)) == -1)
@@ -127,6 +128,7 @@ int		main(int ac, const char **av)
 	while (get_next_line(fd, &line) > 0)
 		if (ft_norminette(line, fd, ret, nb_tetri) == 0)
 			return (0);
-	ft_algo(NULL, 1, nb_tetri);
+	if (!(ft_algo(NULL, 1, nb_tetri)))
+		return (0);
 	return (0);
 }
