@@ -6,18 +6,19 @@
 /*   By: jebrocho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 15:58:57 by jebrocho          #+#    #+#             */
-/*   Updated: 2018/12/06 16:59:27 by jebrocho         ###   ########.fr       */
+/*   Updated: 2018/12/07 10:37:31 by ezonda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdio.h>
 
-static void		ft_check_pos_map(char **map, char **tetri, int map_pos[2], int nb_tetri)
+static void		ft_check_pos_map(char **map/*, char **tetri*/, int map_pos[2], int nb_tetri)
 {
 	int		i;
 	int		j;
 	char	letter;
+	int f = 0;
 
 	letter = map[map_pos[0]][map_pos[1]];
 	i = 0;
@@ -42,6 +43,7 @@ static void		ft_check_pos_map(char **map, char **tetri, int map_pos[2], int nb_t
 	i = 0;
 	while (map[i])
 	{
+		printf("%d\n", f++);
 		printf("map Back: %s\n", map[i]);
 		i++;
 	}
@@ -54,7 +56,7 @@ static char		**ft_place_tetri(char **map, char **tetri, int nb_tetri)
 	static int		i_tetri;
 	static int		i_j_tetri_stock[2];
 	static int		j_tetri;
-	int				map_pos[2];
+	static int				map_pos[2];
 
 	i = 0;
 	map_pos[0] = 0;
@@ -89,7 +91,7 @@ static char		**ft_place_tetri(char **map, char **tetri, int nb_tetri)
 			}
 			else
 			{
-				ft_check_pos_map(map, tetri, map_pos, nb_tetri);
+				ft_check_pos_map(map/*, tetri*/, map_pos, nb_tetri);
 				i_tetri = i_j_tetri_stock[0];
 				j_tetri = i_j_tetri_stock[1];
 			}
@@ -108,12 +110,12 @@ static char		**ft_place_tetri(char **map, char **tetri, int nb_tetri)
 				j_tetri = 0;
 			}
 		}
-		if (count == 0)
+/*		if (count == 0)
 		{
 			i_j_tetri_stock[0] = i_tetri;
 			i_j_tetri_stock[1] = j_tetri;
 			count++;
-		}
+		}*/
 	}
 	count = 0;
 	i_tetri++;
@@ -123,7 +125,7 @@ static char		**ft_place_tetri(char **map, char **tetri, int nb_tetri)
 char		**ft_algo(char **tetrimino, int i, int nb_tetri)
 {
 	static char		**tetri;
-	char			**map;
+	char			**map = NULL;
 	int				j;
 	int				k;
 

@@ -6,7 +6,7 @@
 /*   By: jebrocho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 14:47:46 by jebrocho          #+#    #+#             */
-/*   Updated: 2018/12/06 13:09:50 by jebrocho         ###   ########.fr       */
+/*   Updated: 2018/12/07 10:18:55 by ezonda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int		main(int ac, const char **av)
 {
 	char	*line;
 	int		fd;
-	int		ret;
+	int		ret = 0;
 	int		nb_tetri;
 
 	nb_tetri = 1;
