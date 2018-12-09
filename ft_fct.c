@@ -6,7 +6,7 @@
 /*   By: jebrocho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 16:46:14 by jebrocho          #+#    #+#             */
-/*   Updated: 2018/12/08 15:40:33 by ezonda           ###   ########.fr       */
+/*   Updated: 2018/12/09 14:35:26 by ezonda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	**ft_create_map(int nb_tetri, char **map)
 
 	i = 0;
 	k = 0;
-	if (nb_tetri >= 3)
+	if (nb_tetri > 2)
 		j = ft_sqrt(nb_tetri * 4);
 	else
 		j = 4;
