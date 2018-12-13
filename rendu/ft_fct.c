@@ -6,11 +6,37 @@
 /*   By: jebrocho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 16:46:14 by jebrocho          #+#    #+#             */
-/*   Updated: 2018/12/12 16:03:32 by jebrocho         ###   ########.fr       */
+/*   Updated: 2018/12/13 21:41:01 by ezonda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+
+void	ft_clear_stock(char *stock[5])
+{
+	int i;
+
+	i = 0;
+	while (i < 5)
+	{
+		free(stock[i]);
+		i++;
+	}
+}
+
+void	clearmap(char **tab)
+{
+	int i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab[i]);
+	free(tab);
+}
 
 int		ft_check_line(char *line)
 {

@@ -6,7 +6,7 @@
 /*   By: jebrocho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 14:47:46 by jebrocho          #+#    #+#             */
-/*   Updated: 2018/12/12 16:06:44 by jebrocho         ###   ########.fr       */
+/*   Updated: 2018/12/13 21:53:13 by ezonda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,10 @@ static int			ft_stock(char *line, int nb_tetri)
 	static char		*stock[5];
 	char			*tetra;
 	static int		i;
+	char			*tmp;
 
-	tetra = "";
+	if (!(tetra = ft_strdup("")))
+		return (-1);
 	if (!(stock[i] = ft_strdup(line)))
 		return (-1);
 	i++;
@@ -82,10 +84,12 @@ static int			ft_stock(char *line, int nb_tetri)
 		i = 0;
 		while (i < 4)
 		{
-			if (!(tetra = ft_strjoin(tetra, stock[i])))
+			if (!(tmp = ft_strjoin(tetra, stock[i])))
 				return (-1);
-			if (!(tetra = ft_strjoin(tetra, " ")))
+			ft_strdel(&tetra);
+			if (!(tetra = ft_strjoin(tmp, " ")))
 				return (-1);
+			ft_strdel(&tmp);
 			i++;
 		}
 		stock[i] = "\0";
@@ -93,7 +97,10 @@ static int			ft_stock(char *line, int nb_tetri)
 			return (-1);
 		if ((i = ft_stock_tetrimino(stock, nb_tetri)) == -1)
 			return (-1);
+		ft_strdel(stock);
 	}
+	free(stock[i]);
+	ft_strdel(&tetra);
 	return (i);
 }
 
@@ -108,6 +115,7 @@ static int			ft_norminette(char *line, int fd, int nb_tetri)
 		return (0);
 	if (ret == 0 && ft_check_line(line) == -1)
 		return (0);
+	free(line);
 	return (1);
 }
 
@@ -126,15 +134,20 @@ int					main(int ac, const char **av)
 		return (ft_usage());
 	fd = open(av[1], O_RDONLY);
 	while (get_next_line(fd, &line) > 0)
+	{
 		(!ft_strlen(line) ? nb_tetri++ : check++);
+		free(line);
+	}
 	if (ft_check_void(nb_tetri, check) == 0)
 		return (0);
 	close(fd);
 	fd = open(av[1], O_RDONLY);
 	while (get_next_line(fd, &line) > 0)
+	{
 		if (ft_norminette(line, fd, nb_tetri) == 0)
 			return (0);
-	if (!(ft_algo(NULL, l, nb_tetri)))
-		return (0);
+	}
+	ft_algo(NULL, l, nb_tetri);
+//	while (1);
 	return (0);
 }

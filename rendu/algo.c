@@ -6,7 +6,7 @@
 /*   By: jebrocho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 15:01:39 by jebrocho          #+#    #+#             */
-/*   Updated: 2018/12/12 16:13:36 by jebrocho         ###   ########.fr       */
+/*   Updated: 2018/12/13 21:32:16 by ezonda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ static char		**ft_place_tetri(char **map, char **tetri, int nb_tetri, char lette
 					i_tetri = 0;
 					j_tetri = 0;
 					feed[0]++;
+					clearmap(map);
 					if (!(map = ft_create_map(nb_tetri, map, feed)))
 						return (NULL);
 					letter[0] = 'A';
@@ -124,16 +125,6 @@ static char		**ft_place_tetri(char **map, char **tetri, int nb_tetri, char lette
 							j_map = 0;
 						}
 					}
-				}
-				if (letter[0] - 1 == 'A' && map[ft_sqrt(nb_tetri * 4) + feed[0] - 1][ft_sqrt(nb_tetri * 4) + feed[0] -1] == 'A')
-				{
-					i_tetri = 0;
-					j_tetri = 0;
-					feed[0]++;
-					if (!(map = ft_create_map(nb_tetri, map, feed)))
-						return (NULL);
-					letter[0] = 'A';
-					return (map);
 				}
 				map = ft_rm_tetri(map, letter, 1);
 				if (letter[0] != 'B' && letter[0] != 'A')
@@ -178,7 +169,7 @@ static char		**ft_place_tetri(char **map, char **tetri, int nb_tetri, char lette
 	return (map);
 }
 
-char		**ft_algo(char **tetrimino, char l[1], int nb_tetri)
+void		ft_algo(char **tetrimino, char l[1], int nb_tetri)
 {
 	static char		**tetri;
 	char			**map;
@@ -195,16 +186,15 @@ char		**ft_algo(char **tetrimino, char l[1], int nb_tetri)
 	{
 		letter[0] = l[0];
 		tetri = tetrimino;
-		return (NULL);
+		return ;
 	}
 	if (!(map = ft_create_map(nb_tetri, map, feed)))
-		return (NULL);
+		return ;
 	l[0] = 'A';
 	while (l[0] <= letter[0])
-	{
 		if (!(map = ft_place_tetri(map, tetri, nb_tetri, l, feed)))
-			return (NULL);
-	}
+			return ;
 	ft_display_map(map);
-	return (map);
+	clearmap(map);
+	return ;
 }
