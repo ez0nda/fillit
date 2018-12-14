@@ -6,13 +6,14 @@
 #    By: ezonda <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/09 14:29:07 by ezonda            #+#    #+#              #
-#    Updated: 2018/12/12 16:11:38 by jebrocho         ###   ########.fr        #
+#    Updated: 2018/12/14 16:50:29 by ezonda           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fillit
 
-SRC = main.c checker.c ft_fct.c algo.c algo_tools.c
+SRC = main.c checker.c ft_fct.c algo.c ft_fct_algo.c ft_fct_main.c algo_tools.c\
+	  algo_tools2.c
 
 OBJ = $(SRC: .c=.o)
 

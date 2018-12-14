@@ -6,7 +6,7 @@
 /*   By: ezonda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 14:36:41 by ezonda            #+#    #+#             */
-/*   Updated: 2018/12/13 17:55:28 by ezonda           ###   ########.fr       */
+/*   Updated: 2018/12/14 17:35:18 by ezonda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static int		ft_checkline(char *tab)
 	return (0);
 }
 
-#include <stdio.h>
 static int		ft_checktetri(char *tab)
 {
 	int			i;

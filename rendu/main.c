@@ -6,12 +6,11 @@
 /*   By: jebrocho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 14:47:46 by jebrocho          #+#    #+#             */
-/*   Updated: 2018/12/13 21:53:13 by ezonda           ###   ########.fr       */
+/*   Updated: 2018/12/14 17:43:57 by ezonda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include <stdio.h>
 
 static void			ft_form_tetrimino(char **tetrimino)
 {
@@ -72,7 +71,6 @@ static int			ft_stock(char *line, int nb_tetri)
 	static char		*stock[5];
 	char			*tetra;
 	static int		i;
-	char			*tmp;
 
 	if (!(tetra = ft_strdup("")))
 		return (-1);
@@ -82,29 +80,20 @@ static int			ft_stock(char *line, int nb_tetri)
 	if (i == 4)
 	{
 		i = 0;
-		while (i < 4)
-		{
-			if (!(tmp = ft_strjoin(tetra, stock[i])))
-				return (-1);
-			ft_strdel(&tetra);
-			if (!(tetra = ft_strjoin(tmp, " ")))
-				return (-1);
-			ft_strdel(&tmp);
-			i++;
-		}
+		if (!(tetra = ft_join_tetri(stock, tetra, i)))
+			return (-1);
+		i = 4;
 		stock[i] = "\0";
 		if ((i = ft_checkall(tetra)) == -1)
-			return (-1);
+			return (ft_delncheck(stock, tetra, i));
 		if ((i = ft_stock_tetrimino(stock, nb_tetri)) == -1)
 			return (-1);
 		ft_strdel(stock);
 	}
-	free(stock[i]);
-	ft_strdel(&tetra);
-	return (i);
+	return (ft_delncheck(stock, tetra, i));
 }
 
-static int			ft_norminette(char *line, int fd, int nb_tetri)
+static int			ft_get_tetri(char *line, int fd, int nb_tetri)
 {
 	int				ret;
 
@@ -115,39 +104,31 @@ static int			ft_norminette(char *line, int fd, int nb_tetri)
 		return (0);
 	if (ret == 0 && ft_check_line(line) == -1)
 		return (0);
-	free(line);
 	return (1);
 }
 
-int					main(int ac, const char **av)
+int					main(int ac, char **av)
 {
 	char			*line;
-	int				fd;
-	int				nb_tetri;
 	char			l[1];
-	int				check;
+	int				t[3];
 
+	line = NULL;
 	l[0] = '0';
-	nb_tetri = 1;
-	check = 0;
+	t[1] = 1;
+	t[2] = 0;
 	if (ac != 2)
 		return (ft_usage());
-	fd = open(av[1], O_RDONLY);
-	while (get_next_line(fd, &line) > 0)
-	{
-		(!ft_strlen(line) ? nb_tetri++ : check++);
-		free(line);
-	}
-	if (ft_check_void(nb_tetri, check) == 0)
+	if (ft_check_nbtetri(t, line, av) == 0)
 		return (0);
-	close(fd);
-	fd = open(av[1], O_RDONLY);
-	while (get_next_line(fd, &line) > 0)
+	t[0] = open(av[1], O_RDONLY);
+	while (get_next_line(t[0], &line) > 0)
 	{
-		if (ft_norminette(line, fd, nb_tetri) == 0)
+		if (ft_get_tetri(line, t[0], t[1]) == 0)
 			return (0);
+		ft_strdel(&line);
 	}
-	ft_algo(NULL, l, nb_tetri);
-//	while (1);
+	close(t[0]);
+	ft_algo(NULL, l, t[1]);
 	return (0);
 }

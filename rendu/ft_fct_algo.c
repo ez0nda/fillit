@@ -1,61 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fct.c                                           :+:      :+:    :+:   */
+/*   ft_fct_algo.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jebrocho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ezonda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/04 16:46:14 by jebrocho          #+#    #+#             */
-/*   Updated: 2018/12/14 13:46:32 by ezonda           ###   ########.fr       */
+/*   Created: 2018/12/14 13:22:01 by ezonda            #+#    #+#             */
+/*   Updated: 2018/12/14 17:39:08 by ezonda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-void	clearmap(char **tab)
+void	ft_move_tetri(int d[2])
 {
-	int i;
-
-	i = 0;
-	while (tab[i])
+	d[1]++;
+	if (d[1] == 4)
 	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab[i]);
-	free(tab);
-	tab = NULL;
-}
-
-int		ft_usage(void)
-{
-	ft_putstr("usage: ./fillit source_file\n");
-	return (0);
-}
-
-int		ft_check_void(int nb_tetri, int check)
-{
-	if (nb_tetri != check / 4)
-	{
-		ft_putendl("error");
-		return (0);
-	}
-	return (1);
-}
-
-void	ft_display_map(char **map)
-{
-	int i;
-
-	i = 0;
-	while (map[i])
-	{
-		ft_putendl(map[i]);
-		i++;
+		d[0]++;
+		d[1] = 0;
 	}
 }
 
-char	**ft_create_map(int nb_tetri, char **map, int feed[4])
+void	ft_first_stock(int c[7], int d[2])
+{
+	if (c[4] == 0)
+	{
+		c[2] = d[0];
+		c[3] = d[1];
+		c[4]++;
+	}
+}
+
+void	ft_move_map(int c[7])
+{
+	c[1]++;
+	if (c[1] == ft_sqrt(c[6] * 4) + c[5])
+	{
+		c[0]++;
+		c[1] = 0;
+	}
+}
+
+char	**ft_create_map2(int nb_tetri, char **map, int c[7])
 {
 	int				i;
 	int				j;
@@ -63,7 +50,7 @@ char	**ft_create_map(int nb_tetri, char **map, int feed[4])
 
 	i = 0;
 	k = 0;
-	j = ft_sqrt(nb_tetri * 4) + feed[0];
+	j = ft_sqrt(nb_tetri * 4) + c[5];
 	if (!(map = (char**)malloc(sizeof(char*) * j + 1)))
 		return (NULL);
 	while (i < j)
@@ -80,5 +67,14 @@ char	**ft_create_map(int nb_tetri, char **map, int feed[4])
 		i++;
 	}
 	map[j] = NULL;
+	return (map);
+}
+
+char	**ft_back_tetri(char **map, char l[1], int c[7], int d[2])
+{
+	map = ft_rm_tetri(map, l, 0);
+	ft_move_map(c);
+	d[0] = c[2];
+	d[1] = c[3];
 	return (map);
 }

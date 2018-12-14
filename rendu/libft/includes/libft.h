@@ -6,7 +6,7 @@
 /*   By: jebrocho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 14:35:59 by jebrocho          #+#    #+#             */
-/*   Updated: 2018/12/10 19:06:41 by ezonda           ###   ########.fr       */
+/*   Updated: 2018/12/13 20:23:34 by ezonda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <fcntl.h>
 # include <limits.h>
 
-# define BUFF_SIZE 100
+# define BUFF_SIZE 10
 
 typedef struct		s_list
 {

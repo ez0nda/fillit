@@ -6,7 +6,7 @@
 /*   By: jebrocho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/15 18:06:41 by jebrocho          #+#    #+#             */
-/*   Updated: 2018/12/03 14:17:14 by ezonda           ###   ########.fr       */
+/*   Updated: 2018/12/14 10:50:27 by ezonda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int			get_next_line(const int fd, char **line)
 	static char		*buff[OPEN_MAX];
 	int				ret;
 
-	if (fd < 0 || !line)
+	if (fd < 0 || !line || BUFF_SIZE <= 0 || fd >= OPEN_MAX)
 		return (-1);
 	if (!(buff[fd]) && (!(buff[fd] = ft_strnew(0))))
 		return (-1);
@@ -64,7 +64,7 @@ int			get_next_line(const int fd, char **line)
 	}
 	ft_strdel(&str);
 	if (ret == 0 && ft_strlen(buff[fd]))
-		ret = ft_cpy_end(&buff[fd], &*line);
+		ret = ft_cpy_end(&buff[fd], line);
 	else
 		*line = NULL;
 	return (ret);
